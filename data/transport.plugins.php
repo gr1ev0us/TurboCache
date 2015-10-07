@@ -25,11 +25,18 @@ $plugins[1]->setProperties($properties);
 $events = ['OnWebPagePrerender','OnDocFormSave','OnCacheUpdate'];
 $pluginEvents = [];
 
-$query = $modx->newQuery('modPluginEvent', array('event:IN'=>$events));
-$pluginEvents = $modx->getCollection('modPluginEvent',$query);
+foreach($events as $event){
+    $e = $modx->newObject('modPluginEvent');
+    $e->fromArray(array(
+        'event' => $event
+    ));
+    $pluginEvents [] = $e;
+}
+//$query = $modx->newQuery('modPluginEvent', array('event:IN'=>$events));
+//$pluginEvents = $modx->getCollection('modPluginEvent',$query);
 
 //$plugins[1]->addMany($pluginEvents);
-$pluginEvents = $plugins[1]->getMany('PluginEvents');
+//$pluginEvents = $plugins[1]->getMany('PluginEvents');
 $plugins[1]->addMany($pluginEvents);
 unset($properties);
 
