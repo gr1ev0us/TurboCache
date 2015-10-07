@@ -47,6 +47,8 @@ if ($result) {
         return true;
     }
 }
+
+
 if ($object->xpdo) {
     $resolver = new PackageResolver();
     switch ($options[xPDOTransport::PACKAGE_ACTION]){

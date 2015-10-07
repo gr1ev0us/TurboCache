@@ -46,7 +46,7 @@ $category->set('category',PKG_NAME);
 $modx->log(modX::LOG_LEVEL_INFO,'Packaging in plugins...');
 $plugins = include $sources['data'].'transport.plugins.php';
 if (empty($plugins)) $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in plugins.');
-$category->addMany($snippets);
+$category->addMany($plugins);
 $attr = array(
     xPDOTransport::UNIQUE_KEY => 'category',
     xPDOTransport::PRESERVE_KEYS => false,
@@ -58,6 +58,12 @@ $attr = array(
             xPDOTransport::UPDATE_OBJECT => true,
             xPDOTransport::UNIQUE_KEY => 'name',
         ),
+        'PluginEvents' => array(
+            xPDOTransport::PRESERVE_KEYS => true,
+            xPDOTransport::UPDATE_OBJECT => false,
+            xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+        ),
+
     ),
 );
 $vehicle = $builder->createVehicle($category,$attr);
